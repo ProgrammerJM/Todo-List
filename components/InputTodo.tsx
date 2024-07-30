@@ -11,7 +11,7 @@ export default function InputTodo() {
       if (!description) return;
 
       const body = { description };
-      await fetch("http://localhost:5000/todos", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

@@ -8,7 +8,7 @@ export default function ListTodo() {
 
   const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5000/todos");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
       const jsonData = await response.json();
 
       setTodos(jsonData);
@@ -19,7 +19,7 @@ export default function ListTodo() {
 
   const deleteTodo = async (id: number) => {
     try {
-      await fetch(`http://localhost:5000/todos/${id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`, {
         method: "DELETE",
       });
 
