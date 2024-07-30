@@ -25,7 +25,7 @@ export default function InputTodo() {
 
   return (
     <header className="flex flex-col items-center mt-20 px-4 sm:px-8">
-      <h1 className="text-2xl font-bold mb-5">Pern Todo List</h1>
+      <h1 className="text-2xl font-bold mb-5">Todo List - PERN Stack</h1>
       <form
         className="flex flex-col sm:flex-row justify-center w-full max-w-lg mt-5"
         onSubmit={onSubmitForm}
