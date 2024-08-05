@@ -27,7 +27,7 @@ const Footer = () => {
             </svg>
           </Link>
           <p className="text-sm mb-2 md:mb-0">
-            Develop by John Mark Tizado with {"<3"}
+            Developed by John Mark Tizado with {"<3"}
           </p>
         </div>
       </div>
