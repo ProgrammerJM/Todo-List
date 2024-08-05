@@ -52,27 +52,35 @@ export default function ListTodo() {
           </tr>
         </thead>
         <tbody>
-          {todos.map((todo: { todo_id: number; description: string }) => (
-            <tr
-              key={todo.todo_id}
-              className="dark:odd:bg-white dark:even:bg-gray-100 odd:bg-black even:bg-gray-800"
-            >
-              <td className="px-4 py-2 border-b border-gray-300 dark:text-black text-white">
-                {todo.description}
-              </td>
-              <td className="px-4 py-2 border-b border-gray-300">
-                <EditTodo todo={todo} />
-              </td>
-              <td className="px-4 py-2 border-b border-gray-300">
-                <button
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-300"
-                  onClick={() => deleteTodo(todo.todo_id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+          {todos &&
+            todos.map((todo: { todo_id: number; description: string }) => (
+              <tr
+                key={todo.todo_id}
+                className="dark:odd:bg-white dark:even:bg-gray-100 odd:bg-black even:bg-gray-800"
+              >
+                <td className="px-4 py-2 border-b border-gray-300 dark:text-black text-white">
+                  {todo.description}
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <EditTodo todo={todo} />
+                </td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-300"
+                    onClick={() => deleteTodo(todo.todo_id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}{" "}
+          : (
+          <tr>
+            <td colSpan={3} className="text-center py-4">
+              Fetching Data... Please Wait
+            </td>
+          </tr>
+          )
         </tbody>
       </table>
     </div>
