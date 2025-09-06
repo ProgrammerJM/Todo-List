@@ -27,7 +27,9 @@ export default function ListTodo() {
       setLoading(false);
     } catch (err: any) {
       if (err.name === "AbortError") {
-        setError("Request timed out. Please check your server connection.");
+        setError(
+          `This project's database has expired and is no longer available.`
+        );
       } else {
         setError(err.message || "Failed to fetch todos.");
       }
