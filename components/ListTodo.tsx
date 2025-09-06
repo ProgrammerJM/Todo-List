@@ -9,8 +9,14 @@ export default function ListTodo() {
   const [error, setError] = useState<string | null>(null);
 
   const getTodos = async () => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // ⏱ timeout after 5s
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`, {
+        signal: controller.signal,
+      });
+
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
@@ -20,9 +26,14 @@ export default function ListTodo() {
       setTodos(jsonData);
       setLoading(false);
     } catch (err: any) {
-      console.error(err.message);
-      setError(err.message || "Failed to fetch todos.");
+      if (err.name === "AbortError") {
+        setError("Request timed out. Please check your server connection.");
+      } else {
+        setError(err.message || "Failed to fetch todos.");
+      }
       setLoading(false);
+    } finally {
+      clearTimeout(timeoutId);
     }
   };
 
