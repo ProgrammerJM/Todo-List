@@ -6,16 +6,22 @@ import EditTodo from "@/components/EditTodo";
 export default function ListTodo() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const getTodos = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
       const jsonData = await response.json();
 
       setTodos(jsonData);
       setLoading(false);
     } catch (err: any) {
       console.error(err.message);
+      setError(err.message || "Failed to fetch todos.");
       setLoading(false);
     }
   };
@@ -45,6 +51,20 @@ export default function ListTodo() {
         <p className="text-lg text-gray-900 mt-2">
           Fetching Data... Please Wait
         </p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col justify-center items-center h-96 text-center">
+        <p className="text-lg text-red-600">❌ Error: {error}</p>
+        <button
+          className="mt-4 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
+          onClick={getTodos}
+        >
+          Retry
+        </button>
       </div>
     );
   }
