@@ -9,6 +9,9 @@ export default function ListTodo() {
   const [error, setError] = useState<string | null>(null);
 
   const getTodos = async () => {
+    setLoading(true);
+    setError(null);
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // ⏱ timeout after 5s
 
